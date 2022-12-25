@@ -1,0 +1,22 @@
+version: "2.2"
+
+services:
+  acars_es:
+    container_name: acars_es
+    restart: unless-stopped
+    image: elasticsearch:8.5.3
+    environment:
+      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+      HTTP_ENABLE: "true"
+      xpack.security.enabled: "true"
+      xpack.security.http.ssl.enabled: "false"
+      xpack.security.transport.ssl.enabled: "false"
+      discovery.type: "single-node"
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - ${ELASTICSEARCH_DATA_PATH}:/usr/share/elasticsearch/data:Z
+    ports:
+      - "${ELASTICSEARCH_PORT}:9200"
