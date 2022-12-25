@@ -25,9 +25,9 @@ sudo firewall-cmd --zone=public --add-port=5601/tcp
 Add `--permanent` to ensure the rule sticks around after a reboot.
  2. Create a `.env` file with the following contents:
 <pre>
-KIBANA_SYSTEM_PASSWORD="<kibana_system password>"
+KIBANA_SYSTEM_PASSWORD="[kibana_system password]"
 </pre>
-Replace `<kibana_system password>` with the password for `kibana_system` in `es_auth_info.md` from computer **A**
+Replace `[kibana_system password]` with the password for `kibana_system` in `es_auth_info.md` from computer **A**
  3. Run `make start_kibana`
  4. Open [http://localhost:5601](http://localhost:5601) on computer **B** and use the `elastic` user authentication from `es_auth_info.md` from computer **A** to log in
 
