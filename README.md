@@ -18,16 +18,14 @@ sudo firewall-cmd --zone=public --permanent --add-port=9200/tcp
  4. Take note of the ElasticSearch authentication information in `es_auth_info.md`
 
 On computer **B**:
- 1. Optionally, enable external Kibana port access via the following command:
+ 1. Optionally, enable external Kibana port access via the following command, add `--permanent` to ensure the rule sticks around after a reboot.:
 <pre>
 sudo firewall-cmd --zone=public --add-port=5601/tcp
 </pre>
-Add `--permanent` to ensure the rule sticks around after a reboot.
- 2. Create a `.env` file with the following contents:
+ 2. Create a `.env` file with the following contents, replace `[kibana_system password]` with the password for `kibana_system` in `es_auth_info.md` from computer **A**:
 <pre>
 KIBANA_SYSTEM_PASSWORD="[kibana_system password]"
 </pre>
-Replace `[kibana_system password]` with the password for `kibana_system` in `es_auth_info.md` from computer **A**
  3. Run `make start_kibana`
  4. Open [http://localhost:5601](http://localhost:5601) on computer **B** and use the `elastic` user authentication from `es_auth_info.md` from computer **A** to log in
 
