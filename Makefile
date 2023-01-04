@@ -1,6 +1,7 @@
 REPO_PATH          := $(shell pwd)
 DATA_PATH          := ${REPO_PATH}/data
 ES_AUTH_INFO_PATH  := ${REPO_PATH}/es_auth_info.md
+ES_ENV_FILE        := ${REPO_PATH}/.env
 
 ELASTICSEARCH_PORT := 9200
 KIBANA_PORT        := 5601
@@ -18,6 +19,7 @@ start: start_es start_kibana
 stop: stop_es stop_kibana
 
 run_kibana: ${DATA_PATH}/kibana
+	@./scripts/check_env.sh
 	@KIBANA_DATA_PATH="${DATA_PATH}/kibana" \
 	 KIBANA_PORT="${KIBANA_PORT}" \
 	 	docker-compose -f docker-compose.kibana.yaml up -d
@@ -39,7 +41,7 @@ stop_es:
 
 ${ES_AUTH_INFO_PATH}: run_es
 	@./scripts/wait_for.sh http://localhost:${ELASTICSEARCH_PORT}
-	@./scripts/reset_password.sh ${ES_AUTH_INFO_PATH}
+	@./scripts/reset_password.sh ${ES_AUTH_INFO_PATH} ${ES_ENV_FILE}
 	
 start_es: run_es ${ES_AUTH_INFO_PATH}
 
@@ -53,4 +55,4 @@ clean:
 	$(info Removing data directories at ${DATA_PATH})
 	-@rm -I -r ${DATA_PATH}
 	$(info Remove ES authentication info)
-	-@rm ${ES_AUTH_INFO_PATH}
+	-@rm ${ES_AUTH_INFO_PATH} ${ES_ENV_FILE}

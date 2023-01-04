@@ -7,7 +7,7 @@ services:
     image: kibana:8.5.3
     environment:
       SERVER_NAME: "acars_kibana"
-      ELASTICSEARCH_HOSTS: "http://172.18.0.2:9200"
+      ELASTICSEARCH_HOSTS: "${KIBANA_ES_HOST}"
       ELASTICSEARCH_USERNAME: "kibana_system"
       ELASTICSEARCH_PASSWORD: ${KIBANA_SYSTEM_PASSWORD}
     volumes:

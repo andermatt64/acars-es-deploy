@@ -5,7 +5,7 @@ REPO_PATH="$(dirname "${SCRIPT_PARENT_PATH}")"
 ENV_PATH="${REPO_PATH}/.env"
 
 if [ ! -f "${ENV_PATH}" ]; then
-  printf "WARNING: ${REPO_PATH} must exist with KIBANA_SYSTEM_PASSWORD defined\n"
+  printf "WARNING: ${ENV_PATH} must exist with KIBANA_SYSTEM_PASSWORD defined\n"
   exit 1
 fi
 
